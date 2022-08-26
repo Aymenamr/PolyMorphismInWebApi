@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
+    //Register the subtypes of the Device (Phone and Laptop)
+    //and define the device Discriminator
     options.SerializerSettings.Converters.Add(
         JsonSubtypesConverterBuilder
         .Of(typeof(Device),CommonData.DeviceDiscriminator)
@@ -24,6 +26,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+//Add the features of Polymorphism to the swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", 
